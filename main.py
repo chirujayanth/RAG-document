@@ -2,10 +2,11 @@ from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import SentenceTransformerEmbeddings
+from langchain_community.document_loaders import PyPDFLoader
 from groq import Groq
 
 # Load the text file
-loader = TextLoader("document.txt")
+loader = PyPDFLoader("notes.pdf")
 documents = loader.load()
 
 # Split the text into smaller chunks
