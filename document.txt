@@ -1,0 +1,14 @@
+Cafe Club Chintamani Menu and Policies
+
+Our cafe opens at 8 AM and closes at 10 PM every day.
+
+Refund Policy: Customers can get a full refund within 30 minutes of placing an order if the food has not been prepared yet. No refunds after food is served.
+
+Our most popular items are:
+- Masala Dosa: Rs 80
+- Filter Coffee: Rs 40
+- Paneer Sandwich: Rs 120
+- Cold Coffee: Rs 90
+
+For bulk orders above Rs 2000, customers get 10% discount.
+Delivery is available within 5km radius for orders above Rs 500.

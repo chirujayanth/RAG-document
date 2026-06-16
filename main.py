@@ -1,0 +1,44 @@
+from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import SentenceTransformerEmbeddings
+from groq import Groq
+
+# Load the text file
+loader = TextLoader("document.txt")
+documents = loader.load()
+
+# Split the text into smaller chunks
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=50)
+chunks = text_splitter.split_documents(documents)
+
+print(f"number of chunks: {len(chunks)}")
+
+# Create embeddings for the chunks
+embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+vectorstore = Chroma.from_documents(chunks, embeddings)
+
+print("vector store created successfully")
+
+#taking question as input
+question = input("Ask a question about the document: ")
+
+#finding the relevant chunks for the question
+relevant_chunks = vectorstore.similarity_search(question, k=2)
+context = " ".join([chunk.page_content for chunk in relevant_chunks])
+
+print(f"\nRelevant context found:\n{context}\n")
+
+# Send to Groq AI for answer generation
+client = Groq(api_key="YOUR_GROQ_API_KEY")
+
+response = client.chat.completions.create(
+    model="llama-3.3-70b-versatile",
+    messages=[
+        {"role": "system", "content": "Answer questions based only on the provided context."},
+        {"role": "user", "content": f"Context: {context}\n\nQuestion: {question}"}
+    ]
+)
+
+answer = response.choices[0].message.content
+print(f"AI Answer: {answer}")
