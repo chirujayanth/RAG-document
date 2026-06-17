@@ -39,7 +39,7 @@ while True:
     print(f"\nRelevant context found:\n{context}\n")
 
     # Send to Groq AI for answer generation
-    client = Groq(api_key="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")
+    client = Groq(api_key="your_groq_api_key_here")
 
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
